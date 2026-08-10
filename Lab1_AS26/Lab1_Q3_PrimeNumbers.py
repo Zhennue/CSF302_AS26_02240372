@@ -1,5 +1,8 @@
 import time
 
+# Input sizes
+sizes_372 = [10000, 50000, 100000, 500000, 1000000]
+
 
 # Naive Prime Checking using Trial Division
 def naive_prime_372(number_372):
@@ -49,11 +52,7 @@ def sieve_372(number_372):
     return prime_372
 
 
-# Input sizes
-sizes_372 = [10000, 50000, 100000, 500000, 1000000]
-
-
-# Test each input size
+# Testing each input size
 for size_372 in sizes_372:
 
     # Naive Prime Checking

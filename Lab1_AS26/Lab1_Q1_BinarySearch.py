@@ -31,7 +31,7 @@ def binary_search_372(data_372, target_372):
     return -1
 
 
-# Test each dataset size
+# Testing dataset size
 for size_372 in sizes_372:
 
     #3/ Generate random dataset
@@ -44,7 +44,7 @@ for size_372 in sizes_372:
     target_372 = random.choice(data_372)
 
 
-#5/ Measure the average execution time for both algorithms.
+#5/ Measuring the average execution time for both algorithms.
 
 
     # Linear Search average time

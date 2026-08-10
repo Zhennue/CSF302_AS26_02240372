@@ -41,14 +41,14 @@ def merge_372(left_372, right_372):
     return result_372
 
 
-# Test each size
+# Testing each size
 for size_372 in sizes_372:
 
     #3/ Generate random array
     data_372 = random.sample(range(size_372 * 10), size_372)
 
 
-# 4/ Measure average execution time.
+# 4/ Measuring average execution time.
 
 
     # Bubble Sort average time
