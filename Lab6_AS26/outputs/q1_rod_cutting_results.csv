@@ -1,0 +1,16 @@
+algorithm,n,calls,time_seconds,maximum_revenue
+Naive recursion,5,32,0.00003550,13
+Top-down memoized,5,16,0.00002040,13
+Bottom-up tabulated,5,15,0.00001130,13
+Naive recursion,10,1024,0.00048160,30
+Top-down memoized,10,56,0.00003490,30
+Bottom-up tabulated,10,55,0.00001670,30
+Naive recursion,15,32768,0.01469030,45
+Top-down memoized,15,121,0.00007260,45
+Bottom-up tabulated,15,120,0.00004470,45
+Naive recursion,20,1048576,0.47972060,60
+Top-down memoized,20,211,0.00011200,60
+Bottom-up tabulated,20,210,0.00005930,60
+Naive recursion,25,33554432,18.22820470,75
+Top-down memoized,25,326,0.00019430,75
+Bottom-up tabulated,25,325,0.00007150,75

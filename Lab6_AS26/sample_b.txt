@@ -1,0 +1,4 @@
+The quick red fox
+jumps over a lazy dog
+Dynamic programming is powerful
+Algorithms solve problems efficiently
