@@ -1,0 +1,2 @@
+Greedy algorithms make a locally best choice at each step.
+They are useful for activity selection, knapsack and graph problems.

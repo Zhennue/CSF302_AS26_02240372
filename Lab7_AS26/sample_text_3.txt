@@ -1,0 +1,4 @@
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+bbbbbbbbbbbbbbbb
+cccccccc
+This file has repeated characters to demonstrate Huffman compression.

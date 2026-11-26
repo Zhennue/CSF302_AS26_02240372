@@ -1,0 +1,22 @@
+Input type,n,Basic time (seconds),Basic status,Improved time (seconds),Improved status
+random,1000,0.001038200000039069,completed,0.0013933000000179163,completed
+random,2000,0.001956199999767705,completed,0.0027721000005840324,completed
+random,4000,0.003891500000463566,completed,0.005815699999402568,completed
+random,8000,0.008195499999601452,completed,0.012591700000484707,completed
+random,16000,0.019604699999945296,completed,0.028294300000197836,completed
+random,32000,0.045578399999612884,completed,0.07076229999984207,completed
+random,64000,0.10731510000005073,completed,0.17280839999966702,completed
+sorted,1000,,RecursionError,0.0016374999995605322,completed
+sorted,2000,,RecursionError,0.002463700000589597,completed
+sorted,4000,,RecursionError,0.007387099999505153,completed
+sorted,8000,,RecursionError,0.015412499999911233,completed
+sorted,16000,,RecursionError,0.027664700000059383,completed
+sorted,32000,,RecursionError,0.06693340000038006,completed
+sorted,64000,,RecursionError,0.12428739999995742,completed
+duplicates,1000,0.005235200000242912,completed,0.0003059999999095453,completed
+duplicates,2000,0.01926900000034948,completed,0.0006915000003573368,completed
+duplicates,4000,0.0681246000003739,completed,0.0012800000004062895,completed
+duplicates,8000,0.27597250000053464,completed,0.0026472999998077285,completed
+duplicates,16000,,RecursionError,0.0048968999999488005,completed
+duplicates,32000,,RecursionError,0.009677799999735726,completed
+duplicates,64000,,RecursionError,0.021590199999991455,completed

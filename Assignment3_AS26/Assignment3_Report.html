@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Assignment 3 Report - Fixing a Slow Quicksort</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+body { margin: 0; color: #111; font-family: "Times New Roman", Georgia, serif; font-size: 10.4pt; line-height: 1.32; }
+.page { width: 210mm; height: 297mm; padding: 19mm 25mm 19mm; position: relative; page-break-after: always; overflow: hidden; }
+.page:last-child { page-break-after: auto; }
+.cover { padding: 23mm 25mm 20mm; }
+.logos { display: flex; align-items: center; justify-content: space-between; height: 32mm; margin-bottom: 5mm; }
+.logos img { object-fit: contain; }
+.logo-left,.logo-right { width: 27mm; height: 27mm; }
+.logo-center { width: 29mm; height: 29mm; }
+.institution { text-align: center; margin: 0 0 8mm; }
+.institution .dzongkha { display: block; height: 12mm; width: auto; max-width: 75mm; object-fit: contain; margin: 0 auto 1mm; }
+.institution .english { display: block; height: 9mm; width: auto; max-width: 85mm; object-fit: contain; margin: 0 auto; }
+.course { text-align: center; margin-top: 8mm; font-size: 16pt; font-weight: bold; line-height: 1.4; }
+.assignment-title { text-align: center; font-size: 17pt; font-weight: bold; margin-top: 12mm; }
+.submitted { position: absolute; left: 25mm; bottom: 24mm; line-height: 1.55; font-size: 11pt; }
+.ai-top { text-align: center; font-size: 9.5pt; margin-top: 6mm; }
+h1 { font-size: 14pt; margin: 0 0 3mm; }
+h2 { font-size: 11.5pt; margin: 4mm 0 1.5mm; }
+p { margin: 0 0 2.4mm; text-align: justify; }
+ol, ul { margin: 1mm 0 2mm 6mm; padding-left: 5mm; }
+li { margin: 0 0 1mm; }
+.equation { text-align: center; margin: 3mm 0; font-size: 11pt; }
+table { border-collapse: collapse; width: 100%; margin: 2mm 0 3mm; font-size: 8.2pt; line-height: 1.18; }
+th, td { border: 0.5pt solid #777; padding: 1.3mm 1.4mm; text-align: center; }
+th { font-weight: bold; background: #f1f1f1; }
+.left { text-align: left; }
+.small { font-size: 8.7pt; }
+.charts { display: flex; gap: 2.5mm; margin-top: 3mm; align-items: flex-start; }
+.charts figure { margin: 0; width: 33.33%; text-align: center; }
+.charts img { width: 100%; height: 36mm; object-fit: contain; }
+.charts figcaption { font-size: 8pt; margin-top: 1mm; }
+.footer { position: absolute; bottom: 9mm; right: 25mm; font-size: 9pt; }
+.reflection p { margin-bottom: 2.8mm; }
+.declaration { margin-top: 3mm; border-top: 0.5pt solid #888; padding-top: 2mm; font-size: 9pt; }
+</style>
+</head>
+<body>
+<section class="page cover">
+  <div class="logos">
+    <img class="logo-left" src="../report_assets/royal_university_bhutan.png" alt="Royal University of Bhutan">
+    <img class="logo-center" src="../report_assets/buddhist_emblem.png" alt="Institutional emblem">
+    <img class="logo-right" src="../report_assets/college_science_technology.png" alt="College of Science and Technology">
+  </div>
+  <div class="institution">
+    <img class="dzongkha" src="../report_assets/cst_dzongkha.png" alt="College name in Dzongkha">
+    <img class="english" src="../report_assets/cst_english.png" alt="College of Science and Technology, Rinchending Bhutan">
+  </div>
+  <div class="course">CSF302<br>Algorithm Design &amp; Analysis<br>(AS2026)</div>
+  <div class="assignment-title">Assignment 3 Report</div>
+  <div class="assignment-title" style="font-size:13pt; margin-top:3mm;">Fixing a Slow Quicksort</div>
+  <div class="ai-top">AI tool declaration: OpenAI Codex was used to review the implementation, tests and analysis.</div>
+  <div class="submitted">Submitted By;<br>Name: Yeshey Zhennue<br>Student No.: 02240372<br>Programme: BE 3SWE<br>Date: 26 November, 2026</div>
+</section>
+
+<section class="page">
+  <h1>1. Introduction</h1>
+  <p>This report compares a basic last-element-pivot quicksort with an improved randomized quicksort for transaction amounts. The main concern is that real lists may already be sorted or contain many repeated values. Those patterns can make an ordinary quicksort split its work unevenly.</p>
+
+  <h1>2. Implementation</h1>
+  <h2>2.1 Basic quicksort</h2>
+  <p>The basic version uses Lomuto partitioning and the last element as its pivot. Values no greater than the pivot move to its left. It sorts in place and follows both partitions recursively. This version is included to show how a simple pivot choice can fail on structured data.</p>
+  <h2>2.2 Improved quicksort</h2>
+  <p>The improved version chooses a random pivot, groups values into less-than, equal-to and greater-than sections, and uses insertion sort for short ranges. It recursively sorts the smaller side and loops over the larger side, which keeps recursion depth logarithmic. Grouping equal values also avoids repeatedly sorting duplicate amounts.</p>
+
+  <h1>3. Testing</h1>
+  <p>Both versions were checked against Python's <code>sorted()</code> on 500 seeded random lists. The tests also cover an empty list, one item, all equal values, sorted and reverse-sorted lists, and negative values. All eight test groups passed. The sample output from both implementations was identical.</p>
+  <p>The performance experiment used random, already sorted, and duplicate-heavy lists at sizes from 1,000 to 64,000. A basic-sort run that raised <code>RecursionError</code> is reported as a result rather than omitted.</p>
+  <div class="footer">1</div>
+</section>
+
+<section class="page">
+  <h1>4. Complexity and Performance</h1>
+  <h2>4.1 Why the basic quicksort fails</h2>
+  <p>For sorted input, the last element is the largest value, so each partition leaves one empty side and one side with n - 1 values. The recurrence is:</p>
+  <div class="equation">T(n) = T(n - 1) + Θ(n) = Θ(n²)</div>
+  <p>The recursion chain also grows linearly and exceeds Python's recursion limit. The average-case assumption of reasonably balanced pivots does not hold for sorted data. With duplicate-heavy input, the basic partition's <code>&lt;= pivot</code> condition also sends equal values repeatedly to the same side.</p>
+  <h2>4.2 Measured execution times (seconds)</h2>
+  <table>
+    <tr><th>n</th><th>Random<br>basic</th><th>Random<br>improved</th><th>Sorted<br>basic</th><th>Sorted<br>improved</th><th>Duplicates<br>basic</th><th>Duplicates<br>improved</th></tr>
+    <tr><td>1,000</td><td>0.00106</td><td>0.00118</td><td>Crash</td><td>0.00119</td><td>0.00450</td><td>0.00034</td></tr>
+    <tr><td>2,000</td><td>0.00171</td><td>0.00270</td><td>Crash</td><td>0.00256</td><td>0.01655</td><td>0.00057</td></tr>
+    <tr><td>4,000</td><td>0.00372</td><td>0.00554</td><td>Crash</td><td>0.00538</td><td>0.06682</td><td>0.00121</td></tr>
+    <tr><td>8,000</td><td>0.00806</td><td>0.01289</td><td>Crash</td><td>0.01231</td><td>0.25019</td><td>0.00303</td></tr>
+    <tr><td>16,000</td><td>0.01908</td><td>0.02558</td><td>Crash</td><td>0.02774</td><td>Crash</td><td>0.00423</td></tr>
+    <tr><td>32,000</td><td>0.03817</td><td>0.05951</td><td>Crash</td><td>0.05646</td><td>Crash</td><td>0.01098</td></tr>
+    <tr><td>64,000</td><td>0.08249</td><td>0.13246</td><td>Crash</td><td>0.12775</td><td>Crash</td><td>0.01701</td></tr>
+  </table>
+  <p class="small">“Crash” means the basic implementation raised RecursionError. Timings are from Python 3.14 on this computer.</p>
+  <div class="charts">
+    <figure><img src="outputs/Q2_random_Graph.png" alt="Random input timing graph"><figcaption>Random input</figcaption></figure>
+    <figure><img src="outputs/Q2_sorted_Graph.png" alt="Sorted input timing graph"><figcaption>Sorted input</figcaption></figure>
+    <figure><img src="outputs/Q2_duplicates_Graph.png" alt="Duplicate-heavy timing graph"><figcaption>Duplicate-heavy input</figcaption></figure>
+  </div>
+  <div class="footer">2</div>
+</section>
+
+<section class="page">
+  <h1>5. Cutoff Selection and Python Comparison</h1>
+  <p>On 100,000 seeded random values, I tested six insertion-sort cutoffs. Cutoff 8 was fastest in this Python 3.14 run. The selected cutoff can vary with the computer, interpreter and input.</p>
+  <table style="width:62%; margin-left:auto; margin-right:auto;">
+    <tr><th>Cutoff</th><th>Time (seconds)</th></tr>
+    <tr><td>1</td><td>0.28884</td></tr><tr><td>4</td><td>0.28920</td></tr>
+    <tr><td><b>8</b></td><td><b>0.24010</b></td></tr><tr><td>16</td><td>0.28437</td></tr>
+    <tr><td>32</td><td>0.26035</td></tr><tr><td>64</td><td>0.24815</td></tr>
+  </table>
+  <p>Using the selected cutoff, improved quicksort sorted 100,000 values in 0.24149 seconds. Python's <code>sorted()</code> took 0.01330 seconds, about 18 times faster. The built-in benefits from a highly tuned algorithm and optimized native implementation; this experiment cannot separate the contribution of each.</p>
+
+  <h1>6. Critical Reflection</h1>
+  <div class="reflection">
+  <p><b>Why did the basic quicksort fail on sorted data?</b> Its final-element pivot repeatedly selected the maximum, producing a partition of sizes zero and n - 1. The average-case analysis assumes pivots tend to make more balanced partitions. Sorted data violated that assumption and created a linear recursion chain.</p>
+  <p><b>Why use insertion sort for small parts?</b> On a short range, insertion sort has little setup work and moves nearby values efficiently. Its quadratic growth is limited to small subarrays, so it can reduce overhead in the complete quicksort.</p>
+  <p><b>How did I check AI assistance?</b> Codex helped review and organize the implementation. I ran the sample, all eight test groups and the timing experiment, and compared outputs with <code>sorted()</code>. The basic algorithm's crashes were recorded rather than treated as valid sorted results.</p>
+  </div>
+  <h1>7. Conclusion</h1>
+  <p>The fixed-pivot quicksort is quick on random data but unreliable on sorted and duplicate-heavy lists. Random pivots, three-way partitioning, insertion sort for short ranges and smaller-side recursion make the improved version more robust. Python's built-in sort remained the fastest in this experiment.</p>
+  <div class="declaration"><b>AI Tool Declaration.</b> OpenAI Codex was used to review the code and help prepare the analysis. I verified the implementation with the supplied tests, random comparisons and benchmark runs.</div>
+  <div class="footer">3</div>
+</section>
+</body>
+</html>
